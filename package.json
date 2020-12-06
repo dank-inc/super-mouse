@@ -1,5 +1,5 @@
 {
-  "name": "super-mouse",
+  "name": "@dank-inc/super-mouse",
   "version": "0.2.0",
   "description": "A dank mouse utility!",
   "main": "lib/index.js",
