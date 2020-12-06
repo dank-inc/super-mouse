@@ -1,6 +1,6 @@
 {
   "name": "@dank-inc/super-mouse",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "A dank mouse utility!",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
