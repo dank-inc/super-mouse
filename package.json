@@ -1,6 +1,6 @@
 {
   "name": "@dank-inc/super-mouse",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "A dank mouse utility!",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -18,6 +18,15 @@
   "bugs": {
     "url": "https://github.com/dank-inc/super-mouse/issues"
   },
+  "keywords": [
+    "mouse",
+    "physics",
+    "fun",
+    "listeners",
+    "event",
+    "interactive",
+    "creative"
+  ],
   "license": "ISC",
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
