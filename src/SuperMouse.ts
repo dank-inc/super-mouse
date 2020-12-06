@@ -42,11 +42,11 @@ export class SuperMouse {
   }
 
   handleClick = (e: MouseEvent) => {
+    const clickState = {}
+
     console.log(`Clicked button => ${e.button}`)
     console.log("SuperMouse.click =>", e, this)
     this.clicked = true
-
-    this.inertia += 10
 
     e.preventDefault()
     e.stopPropagation()
@@ -55,6 +55,17 @@ export class SuperMouse {
   }
 
   handleScroll = (e: WheelEvent) => {
+    // Put scroll in an object:
+    const scrollState = {
+      y: 0,
+      x: 0,
+      shiftX: 0,
+      shiftY: 0,
+    }
+    console.log(e)
+    const ctrl = e.ctrlKey
+    const shift = e.shiftKey
+
     // TODO: invert scroll option
     this.scrollX += e.deltaX * -1
     this.scrollY += e.deltaY * -1
@@ -63,6 +74,7 @@ export class SuperMouse {
 
   handleMove = (e: MouseEvent) => {
     // get delta time
+    const positionState = {}
 
     const lastU = this.u
     const lastV = this.v
@@ -88,8 +100,6 @@ export class SuperMouse {
   }
 
   // TODO: better update / get state cycle
-
-  getState = () => this
 
   update = () => {
     this.inertia *= 0.97
