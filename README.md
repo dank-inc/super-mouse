@@ -6,4 +6,5 @@ A dank mouse utility that does some neat physics-esque stuff and handles modifie
 
 - lots
 - more listeners
+- some sort of docs
 - stuff..
