@@ -8,6 +8,7 @@ Give your users some nifty things to fidget with, all while letting SuperMouseâ„
 
 ## Mousewheel + Mouse Inertia
 
+[Live Demo](https://supermouse.s3.ca-central-1.amazonaws.com/supermouse-scroll-inertia-demo/index.html)
 ![](scroll-inertia-demo.gif)
 
 # TODO
