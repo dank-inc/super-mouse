@@ -14,7 +14,9 @@ Give your users some nifty things to fidget with, all while letting SuperMouseâ„
 
 # TODO
 
-- lots
-- more listeners
-- some sort of docs
-- stuff..
+[] Modifyer keys
+[] Handler overrides
+[] State objects for each button / gesture
+[] gestures?
+[] dom target injection
+[] docs

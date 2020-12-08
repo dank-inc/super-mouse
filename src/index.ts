@@ -2,6 +2,8 @@ export type SuperMouseParams = {
   logging?: boolean
 }
 
+type MouseButtons = Record<number, boolean>
+
 export interface SuperMouse {
   x: number
   y: number
@@ -14,11 +16,10 @@ export interface SuperMouse {
   started: boolean
   logging: boolean
   dragging: boolean
-  clicked: boolean
+  buttons: MouseButtons
 }
 
 export class SuperMouse {
-  // TODO: Modifyer keys
   constructor({ logging }: SuperMouseParams) {
     this.x = 0
     this.y = 0
@@ -31,38 +32,45 @@ export class SuperMouse {
     this.started = false
     this.logging = !!logging
     this.dragging = false
-    this.clicked = false
+    this.buttons = {
+      0: false,
+      1: false,
+      2: false,
+    }
 
     window.addEventListener("mousemove", this.handleMove)
     window.addEventListener("mousedown", this.handleClick)
+    window.addEventListener("mouseup", this.handleRelease)
 
     // @ts-ignore
     window.addEventListener("mousewheel", this.handleScroll)
+
+    // Remove context menu
     window.addEventListener("contextmenu", (e) => e.preventDefault())
   }
 
-  handleClick = (e: MouseEvent) => {
-    const clickState = {}
+  // GETTERS
 
-    console.log(`Clicked button => ${e.button}`)
+  get clicked() {
+    return !!Object.values(this.buttons).filter((b) => !!b).length
+  }
+
+  // HANDLERS
+
+  handleClick = (e: MouseEvent) => {
+    this.buttons[e.button] = true
     console.log("SuperMouse.click =>", e, this)
-    this.clicked = true
 
     e.preventDefault()
     e.stopPropagation()
+  }
 
-    e.cancelBubble = true
+  handleRelease = (e: MouseEvent) => {
+    this.buttons[e.button] = false
   }
 
   handleScroll = (e: WheelEvent) => {
-    // Put scroll in an object:
-    const scrollState = {
-      y: 0,
-      x: 0,
-      shiftX: 0,
-      shiftY: 0,
-    }
-    console.log(e)
+    // TODO: Put scroll in an object:
     const ctrl = e.ctrlKey
     const shift = e.shiftKey
 
@@ -73,8 +81,7 @@ export class SuperMouse {
   }
 
   handleMove = (e: MouseEvent) => {
-    // get delta time
-    const positionState = {}
+    // TODO: get delta time
 
     const lastU = this.u
     const lastV = this.v
@@ -90,19 +97,11 @@ export class SuperMouse {
       return
     }
 
-    // get vector/ add to inertia
-
     const force = (lastU - this.u) ** 2 + (lastV - this.v) ** 2
-
     this.inertia += force * 50
-
-    // console.log(force, this.inertia)
   }
-
-  // TODO: better update / get state cycle
 
   update = () => {
     this.inertia *= 0.97
-    this.clicked = false
   }
 }
