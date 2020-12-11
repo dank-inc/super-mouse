@@ -2,7 +2,6 @@
 
 [![npm version](https://badge.fury.io/js/%40dank-inc%2Fsuper-mouse.svg)](https://badge.fury.io/js/%40dank-inc%2Fsuper-mouse)
 
-
 A dank mouse utility that does some neat physics-esque stuff and handles modifier keys, to be used with creative applications :)
 
 # Examples

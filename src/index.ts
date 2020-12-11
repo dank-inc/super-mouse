@@ -64,7 +64,7 @@ export class SuperMouse {
   // GETTERS
 
   get clicked() {
-    return !!Object.values(this.buttons).filter((b) => !!b).length
+    return Object.values(this.buttons).includes(true)
   }
 
   // HANDLERS
