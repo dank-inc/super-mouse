@@ -25,7 +25,7 @@ const { canvas, ctx } = createCanvas(canvasContainer)
 
 // TODO: put mouse listener on canvas instead.
 
-const mouse = new SuperMouse({ logging: true, element: canvas })
+const mouse = new SuperMouse({ logging: true, element: canvas, disableContext: true })
 
 
 const state = {
@@ -58,4 +58,4 @@ const draw = () => {
 
 draw()
 
-console.log("Super Mouse", mouse)
+console.log("SuperMouse.new", mouse)

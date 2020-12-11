@@ -5,7 +5,7 @@ export type SuperMouseParams = {
 }
 
 type MouseButtons = Record<number, boolean>
-type KeyMap = Record<number, boolean>
+type KeyMap = Record<string, boolean>
 
 export interface SuperMouse {
   x: number
@@ -28,13 +28,19 @@ export interface SuperMouse {
 
 export class SuperMouse {
   constructor({ logging, disableContext, element }: SuperMouseParams) {
+    // position
     this.x = 0
     this.y = 0
     this.u = 0
     this.v = 0
+
+    // scroll behavior
     this.scrollX = 0
     this.scrollY = 0
+    
+    // phyiscs
     this.inertia = 0
+    
     this.started = false
     this.logging = !!logging
     this.dragging = false
@@ -44,8 +50,15 @@ export class SuperMouse {
     this.onElement = false
     this.element = element
 
+    // if element is canvas type, warn about no key events and how to fix
+    console.log(this.element)
+
     // keydown => mapping object
     // keyup => mapping object
+
+    // or not
+    this.element.addEventListener('keydown', e => this.keys[e.key] = true)
+    this.element.addEventListener('keyup', e => this.keys[e.key] = true)
 
     this.element.addEventListener("mousedown", this.handleClick)
     this.element.addEventListener("mousemove", this.handleMove)
@@ -79,18 +92,16 @@ export class SuperMouse {
   }
 
   handleScroll = (e: WheelEvent) => {
-    // TODO: Put scroll in an object:
     const ctrl = e.ctrlKey
     const shift = e.shiftKey
 
-    // TODO: invert scroll option
     this.scrollX += e.deltaX * -1
     this.scrollY += e.deltaY * -1
     console.log("SuperMouse.scroll", this.scrollX, this.scrollY)
   }
 
   handleMove = (e: MouseEvent) => {
-    // TODO: get delta time
+    
 
     const lastU = this.u
     const lastV = this.v

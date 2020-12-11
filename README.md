@@ -18,6 +18,7 @@ Give your users some nifty things to fidget with, all while letting SuperMouseâ„
 
 - [ ] Handler overrides
 - [ ] Modifyer keymap
+- [ ] add helpful message about keyevents in console
 - [ ] State objects for each button / gesture
 - [ ] gestures?
 - [ ] moar listenerz
@@ -28,3 +29,8 @@ Give your users some nifty things to fidget with, all while letting SuperMouseâ„
 - [x] basic event listeners
 - [x] hacky demo
 - [x] dom target
+
+# LATER
+- [ ] delta time on mouse move
+- [ ] encapsulate scroll, position, etc into separate concerns
+- [ ] add inertia to scroll behavior
