@@ -14,9 +14,14 @@ Give your users some nifty things to fidget with, all while letting SuperMouseâ„
 
 # TODO
 
-[] Modifyer keys
-[] Handler overrides
-[] State objects for each button / gesture
-[] gestures?
-[] dom target injection
-[] docs
+- [ ] Handler overrides
+- [ ] Modifyer keymap
+- [ ] State objects for each button / gesture
+- [ ] gestures?
+- [ ] moar listenerz
+- [ ] docs
+
+# DONE
+- [x] basic event listeners
+- [x] hacky demo
+- [x] dom target

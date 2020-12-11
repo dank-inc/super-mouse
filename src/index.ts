@@ -1,8 +1,11 @@
 export type SuperMouseParams = {
+  element: HTMLElement
   logging?: boolean
+  disableContext?: boolean
 }
 
 type MouseButtons = Record<number, boolean>
+type KeyMap = Record<number, boolean>
 
 export interface SuperMouse {
   x: number
@@ -17,36 +20,45 @@ export interface SuperMouse {
   logging: boolean
   dragging: boolean
   buttons: MouseButtons
+  keys: KeyMap
+  element: HTMLElement
+  onElement: boolean
+  disableContext: boolean
 }
 
 export class SuperMouse {
-  constructor({ logging }: SuperMouseParams) {
+  constructor({ logging, disableContext, element }: SuperMouseParams) {
     this.x = 0
     this.y = 0
     this.u = 0
     this.v = 0
     this.scrollX = 0
     this.scrollY = 0
-
     this.inertia = 0
     this.started = false
     this.logging = !!logging
     this.dragging = false
-    this.buttons = {
-      0: false,
-      1: false,
-      2: false,
-    }
+    this.buttons = {}
+    this.keys = {}
+    
+    this.onElement = false
+    this.element = element
 
-    window.addEventListener("mousemove", this.handleMove)
-    window.addEventListener("mousedown", this.handleClick)
-    window.addEventListener("mouseup", this.handleRelease)
+    // keydown => mapping object
+    // keyup => mapping object
 
-    // @ts-ignore
-    window.addEventListener("mousewheel", this.handleScroll)
+    this.element.addEventListener("mousedown", this.handleClick)
+    this.element.addEventListener("mousemove", this.handleMove)
+    this.element.addEventListener("mouseup", this.handleRelease)
+    this.element.addEventListener("wheel", this.handleScroll)
 
-    // Remove context menu
-    window.addEventListener("contextmenu", (e) => e.preventDefault())
+    this.element.addEventListener('mouseenter', () => this.onElement = true)
+    this.element.addEventListener('mouseleave', () => this.onElement = false)
+    
+    this.element.addEventListener('doubleclick', () => {})
+
+    if(disableContext) 
+      this.element.addEventListener("contextmenu", (e) => e.preventDefault())
   }
 
   // GETTERS
@@ -60,9 +72,6 @@ export class SuperMouse {
   handleClick = (e: MouseEvent) => {
     this.buttons[e.button] = true
     console.log("SuperMouse.click =>", e, this)
-
-    e.preventDefault()
-    e.stopPropagation()
   }
 
   handleRelease = (e: MouseEvent) => {
