@@ -1,12 +1,15 @@
 {
   "name": "@dank-inc/super-mouse",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "author": "Elijah Lucian",
   "description": "A dank mouse utility!",
   "repository": {
     "type": "git",
     "url": "https://github.com/dank-inc/super-mouse"
   },
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "license": "MIT",
@@ -23,6 +26,7 @@
     "dev": "vite",
     "lint": "tsc --noEmit",
     "compile": "rm -rf lib && tsc",
+    "compile:win": "del /s /q lib && tsc",
     "deploy": "npm run compile && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
