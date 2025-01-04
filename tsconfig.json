@@ -5,6 +5,8 @@
     "module": "ESNext",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
+    "declaration": true,
+    "outDir": "lib",
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -20,5 +22,5 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
   },
-  "include": ["src"]
+  "include": ["src/index.ts"]
 }
