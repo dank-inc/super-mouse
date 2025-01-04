@@ -2,6 +2,7 @@ export type SuperMouseParams = {
   element: HTMLElement
   debug?: boolean
   disableContext?: boolean
+  scrollScale?: number
   onClick?: (e: MouseEvent) => void
   onMove?: (e: MouseEvent) => void
   onRelease?: (e: MouseEvent) => void
@@ -21,6 +22,7 @@ export interface SuperMouse {
   scrollX: number
   scrollY: number
   inertia: number
+  scrollScale: number
 
   onClick?: (e: MouseEvent) => void
   onMove?: (e: MouseEvent) => void
@@ -44,6 +46,7 @@ export class SuperMouse {
     debug,
     disableContext,
     element,
+    scrollScale,
     onClick,
     onMove,
     onRelease,
@@ -72,7 +75,7 @@ export class SuperMouse {
 
     this.onElement = false
     this.element = element
-
+    this.scrollScale = scrollScale ?? 1
     // if element is canvas type, warn about no key events and how to fix
     console.log(this.element)
 
@@ -130,8 +133,8 @@ export class SuperMouse {
     const ctrl = e.ctrlKey
     const shift = e.shiftKey
 
-    this.scrollX += e.deltaX * -1
-    this.scrollY += e.deltaY * -1
+    this.scrollX += e.deltaX * -1 * this.scrollScale
+    this.scrollY += e.deltaY * -1 * this.scrollScale
     if (this.debug) console.log("SuperMouse.scroll", this.scrollX, this.scrollY)
 
     this.onScroll?.(e)
