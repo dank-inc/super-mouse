@@ -4,11 +4,14 @@
 
 html,
 body {
+  background-color: #333;
   padding: 0;
   margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.viz {
-  width: 100%;
-  height: 99vh;
+canvas {
+  display: block;
 }
+

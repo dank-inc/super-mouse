@@ -1,15 +1,17 @@
 import { SuperMouse } from "../src"
 
+const createCanvas = () => {
+  const canvas = document.querySelector("canvas")!
+  const parentEl = canvas.parentElement!
+  console.log(parentEl)
 
-const canvasContainer = document.querySelector("#canvas")
+  console.log(canvas.clientWidth, canvas.clientHeight)
+  console.log(parentEl.clientWidth, parentEl.clientHeight)
 
-if (!canvasContainer) throw new Error("No Canvas Container!")
+  canvas.width = parentEl.clientWidth
+  canvas.height = parentEl.clientHeight
 
-const createCanvas = (container: Element) => {
-  const canvas = document.querySelector("canvas")
-
-  canvas.width = container.clientWidth
-  canvas.height = container.clientHeight
+  console.log(canvas.width, canvas.height)
 
   const ctx = canvas.getContext("2d")
 
@@ -21,12 +23,15 @@ const createCanvas = (container: Element) => {
   return { canvas, ctx }
 }
 
-const { canvas, ctx } = createCanvas(canvasContainer)
+const { canvas, ctx } = createCanvas()
 
 // TODO: put mouse listener on canvas instead.
 
-const mouse = new SuperMouse({ logging: true, element: canvas, disableContext: true })
-
+const mouse = new SuperMouse({
+  logging: true,
+  element: canvas,
+  disableContext: true,
+})
 
 const state = {
   hue: 40,
@@ -43,8 +48,13 @@ const draw = () => {
   ctx.fillStyle = `hsl(${state.hue + (scrollY < 0 ? 180 : 0)}, 70%, 50%)`
 
   const sqSize = inertia * 10 + Math.abs(scrollY * 0.2)
-  if(onElement) {
-    ctx.fillRect(u * width - sqSize / 2, v * height - sqSize / 2, sqSize, sqSize)
+  if (onElement) {
+    ctx.fillRect(
+      u * width - sqSize / 2,
+      v * height - sqSize / 2,
+      sqSize,
+      sqSize
+    )
     mouse.update()
   }
 
@@ -52,7 +62,6 @@ const draw = () => {
   ctx.fillStyle = "#11111111"
   ctx.fillRect(0, 0, width, height)
 
-  
   window.requestAnimationFrame(draw)
 }
 
