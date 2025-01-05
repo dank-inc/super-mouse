@@ -19,6 +19,7 @@ export interface SuperMouse {
   y: number
   u: number
   v: number
+  scrollInertia: number
   scrollX: number
   scrollY: number
   inertia: number
@@ -62,6 +63,7 @@ export class SuperMouse {
 
     // scroll behavior
     this.scrollX = 0
+    this.scrollInertia = 0
     this.scrollY = 0
 
     // phyiscs
@@ -133,6 +135,8 @@ export class SuperMouse {
     const ctrl = e.ctrlKey
     const shift = e.shiftKey
 
+    this.scrollInertia += e.deltaY + e.deltaX
+
     this.scrollX += e.deltaX * -1 * this.scrollScale
     this.scrollY += e.deltaY * -1 * this.scrollScale
     if (this.debug) console.log("SuperMouse.scroll", this.scrollX, this.scrollY)
@@ -165,6 +169,7 @@ export class SuperMouse {
 
   update = () => {
     this.inertia *= 0.97
+    this.scrollInertia *= 0.97
 
     if (this.debug) console.log("SuperMouse.update", this.inertia)
   }
