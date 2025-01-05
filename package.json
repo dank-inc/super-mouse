@@ -24,6 +24,7 @@
   ],
   "scripts": {
     "dev": "vite",
+    "build": "vite build",
     "lint": "tsc --noEmit",
     "compile": "rm -rf lib && tsc",
     "compile:win": "del /s /q lib && tsc",
