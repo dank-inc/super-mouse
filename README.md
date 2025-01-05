@@ -1,5 +1,7 @@
 # SuperMouse™
 
+[live demo](https://super-mouse.elijahlucian.ca/) 🦹🏼🐁
+
 [![npm version](https://badge.fury.io/js/%40dank-inc%2Fsuper-mouse.svg)](https://badge.fury.io/js/%40dank-inc%2Fsuper-mouse)
 
 ```bash
