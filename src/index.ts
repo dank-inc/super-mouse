@@ -3,7 +3,7 @@ export type SuperMouseParams = {
   debug?: boolean
   disableContext?: boolean
   scrollScale?: number
-  updateScale: number
+  updateScale?: number
   onClick?: (e: MouseEvent) => void
   onMove?: (e: MouseEvent) => void
   onRelease?: (e: MouseEvent) => void
