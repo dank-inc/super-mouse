@@ -1,7 +1,7 @@
 export type SuperMouseParams = {
   element: HTMLElement
   debug?: boolean
-  disableContext?: boolean
+  enableContext?: boolean
   scrollScale?: number
   updateScale?: number
   onClick?: (e: MouseEvent) => void
@@ -10,6 +10,7 @@ export type SuperMouseParams = {
   onScroll?: (e: WheelEvent) => void
   onEnter?: () => void
   onLeave?: () => void
+  onContext?: () => void
 }
 
 type MouseButtons = Record<number, boolean>
@@ -34,6 +35,7 @@ export interface SuperMouse {
   onScroll?: (e: WheelEvent) => void
   onEnter?: () => void
   onLeave?: () => void
+  onContext?: () => void
 
   started: boolean
   debug: boolean
@@ -42,13 +44,13 @@ export interface SuperMouse {
   keys: KeyMap
   element: HTMLElement
   onElement: boolean
-  disableContext: boolean
+  enableContext: boolean
 }
 
 export class SuperMouse {
   constructor({
     debug,
-    disableContext,
+    enableContext,
     element,
     scrollScale,
     updateScale,
@@ -58,6 +60,7 @@ export class SuperMouse {
     onScroll,
     onEnter,
     onLeave,
+    onContext,
   }: SuperMouseParams) {
     // position
     this.x = 0
@@ -91,6 +94,9 @@ export class SuperMouse {
     this.onScroll = onScroll
     this.onEnter = onEnter
     this.onLeave = onLeave
+    this.onContext = onContext
+
+    this.enableContext = !!enableContext
 
     // keydown => mapping object
     // keyup => mapping object
@@ -109,8 +115,11 @@ export class SuperMouse {
 
     this.element.addEventListener("doubleclick", () => {})
 
-    if (disableContext)
-      this.element.addEventListener("contextmenu", (e) => e.preventDefault())
+    this.element.addEventListener("contextmenu", (e) => {
+      if (!this.enableContext) e.preventDefault()
+
+      this.onContext?.()
+    })
   }
 
   // GETTERS
